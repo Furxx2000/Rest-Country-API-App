@@ -11,10 +11,10 @@ import {} from "./BaseSearch.vue";
 <style scoped>
 input {
   width: 100%;
-  height: 3rem;
-  padding: 1rem 2rem;
-  border: 0;
-  border-radius: 5px;
-  box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.0532439);
+  padding: 14px 2rem;
+}
+
+input:focus {
+  outline: none;
 }
 </style>
