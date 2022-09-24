@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BaseFilter: typeof import('./src/components/UI/BaseFilter.vue')['default']
     BaseSearch: typeof import('./src/components/UI/BaseSearch.vue')['default']
     CountryList: typeof import('./src/components/pages/CountryList.vue')['default']
     HelloWorld: typeof import("./src/components/HelloWorld.vue")["default"]
