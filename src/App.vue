@@ -9,6 +9,7 @@ import {} from "./main";
 
 <style>
 body {
+  background-color: hsl(var(--clr-light-gray));
   min-height: 100vh;
 }
 </style>
