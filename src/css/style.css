@@ -65,6 +65,13 @@ select {
   font: inherit;
 }
 
+input {
+  height: 3rem;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.0532439);
+}
+
 /* -------------------------------- */
 /* Utility classes */
 /* -------------------------------- */
