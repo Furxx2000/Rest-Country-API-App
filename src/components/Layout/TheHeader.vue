@@ -7,6 +7,7 @@ import {} from "./TheHeader.vue";
     <nav class="flex">
       <h1 class="fs-header fw-800 text-dark-blue-3">Where in the world</h1>
       <button type="button" class="fs-switcher fw-600 text-dark-blue-3">
+        <font-awesome-icon icon="fa-regular fa-moon" size="xl" />
         Dark Mode
       </button>
     </nav>
