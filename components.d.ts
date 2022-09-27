@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BaseCard: typeof import('./src/components/UI/BaseCard.vue')['default']
     BaseFilter: typeof import('./src/components/UI/BaseFilter.vue')['default']
     BaseSearch: typeof import('./src/components/UI/BaseSearch.vue')['default']
     CountryList: typeof import('./src/components/pages/CountryList.vue')['default']
