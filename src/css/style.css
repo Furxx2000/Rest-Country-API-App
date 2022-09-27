@@ -65,11 +65,14 @@ select {
   font: inherit;
 }
 
+ul {
+  margin: 0;
+}
+
 input {
+  width: 100%;
   height: 3rem;
   border: 0;
-  border-radius: 5px;
-  box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.0532439);
 }
 
 button {
@@ -91,6 +94,25 @@ button {
 .grid {
   display: grid;
   gap: var(--gap, 1rem);
+}
+
+.form-control {
+  position: relative;
+}
+
+.form-control input:focus {
+  outline: none;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+}
+
+.card-style {
+  border-radius: 5px;
+  box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.0532439);
 }
 
 .sr-only {
@@ -139,4 +161,11 @@ button {
 }
 .text-ultra-light-gray {
   color: hsl(var(--clr-ultra-light-gray));
+}
+
+.bg-white {
+  background-color: hsl(var(--clr-white));
+}
+.bg-dark-gray {
+  background-color: hsl(var(--clr-dark-gray));
 }
