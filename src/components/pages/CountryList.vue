@@ -6,6 +6,7 @@ import {} from "./CountryList.vue";
   <main class="grid">
     <BaseSearch />
     <BaseFilter />
+    <BaseCard />
   </main>
 </template>
 
