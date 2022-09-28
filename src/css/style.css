@@ -169,3 +169,19 @@ button {
 .bg-dark-gray {
   background-color: hsl(var(--clr-dark-gray));
 }
+
+body.dark-mode {
+  background-color: hsl(var(--clr-dark-blue-2));
+}
+
+body.dark-mode *,
+body.dark-mode input::placeholder {
+  color: hsl(var(--clr-white));
+}
+
+body.dark-mode header,
+body.dark-mode input,
+body.dark-mode .country-card,
+body.dark-mode ul {
+  background-color: hsl(var(--clr-dark-blue-1));
+}
