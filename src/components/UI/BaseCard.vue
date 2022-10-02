@@ -19,6 +19,9 @@ const {
   countryCapital,
 } = toRefs(props);
 const altText = `This country is ${countryName.value}`;
+const transformedPopulationText = countryPopulation.value
+  .toString()
+  .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 </script>
 
 <template>
@@ -30,9 +33,7 @@ const altText = `This country is ${countryName.value}`;
       <h1 class="fs-500">{{ countryName }}</h1>
       <p>
         Population:
-        <span>{{
-          countryPopulation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        }}</span>
+        <span>{{ transformedPopulationText }}</span>
       </p>
       <p>
         Region: <span>{{ countryRegion }}</span>
