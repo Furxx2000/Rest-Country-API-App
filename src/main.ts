@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import App from "./App.vue";
+import router from "./router";
 import "./css/style.css";
 
 /* import the fontawesome core */
@@ -18,4 +19,10 @@ import {
 /* Add icons to the library */
 library.add(faMoon, faMagnifyingGlass, faAngleDown);
 
-createApp(App).component("font-awesome-icon", FontAwesomeIcon).mount("#app");
+const app = createApp(App);
+
+app.use(router);
+
+app.component("font-awesome-icon", FontAwesomeIcon);
+
+app.mount("#app");
