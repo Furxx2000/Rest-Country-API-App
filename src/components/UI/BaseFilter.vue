@@ -24,7 +24,7 @@ function toggleFilter() {
       />
     </button>
 
-    <ul v-if="isOpenFilter" class="bg-white card-style">
+    <ul v-if="isOpenFilter" class="bg-white card-style flow">
       <li>Africa</li>
       <li>America</li>
       <li>Asia</li>
@@ -57,9 +57,10 @@ ul {
   width: 100%;
   padding: 1rem 1.5rem;
   list-style-type: none;
+  --flow: 0.5rem;
 }
 
 ul li {
-  margin-block: 0.25rem;
+  font-size: var(--fs-input-200);
 }
 </style>
