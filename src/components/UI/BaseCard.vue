@@ -1,15 +1,45 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { toRefs } from "@vue/reactivity";
+import {} from "./BaseFilter.vue";
+
+interface Props {
+  countryFlags: string;
+  countryName: string;
+  countryPopulation: number;
+  countryRegion: string;
+  countryCapital: [];
+}
+
+const props = defineProps<Props>();
+const {
+  countryFlags,
+  countryName,
+  countryPopulation,
+  countryRegion,
+  countryCapital,
+} = toRefs(props);
+const altText = `This country is ${countryName.value}`;
+</script>
 
 <template>
   <article class="country-card card-style">
-    <div class="country-flag bg-dark-gray">
-      <img src="" alt="" />
+    <div class="country-flag">
+      <img :src="countryFlags" :alt="altText" loading="lazy" />
     </div>
     <div class="country-information">
-      <h1 class="fs-500">Germany</h1>
-      <p>Population: <span>81,770,900</span></p>
-      <p>Region: <span>Europe</span></p>
-      <p>Capital: <span>Berlin</span></p>
+      <h1 class="fs-500">{{ countryName }}</h1>
+      <p>
+        Population:
+        <span>{{
+          countryPopulation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        }}</span>
+      </p>
+      <p>
+        Region: <span>{{ countryRegion }}</span>
+      </p>
+      <p>
+        Capital: <span>{{ countryCapital[0] }}</span>
+      </p>
     </div>
   </article>
 </template>
@@ -23,7 +53,7 @@
 }
 
 .country-flag {
-  min-height: 160px;
+  height: 160px;
   border-radius: 5px 5px 0 0;
 }
 
