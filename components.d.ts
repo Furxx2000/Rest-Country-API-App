@@ -10,8 +10,11 @@ declare module '@vue/runtime-core' {
     BaseCard: typeof import('./src/components/UI/BaseCard.vue')['default']
     BaseFilter: typeof import('./src/components/UI/BaseFilter.vue')['default']
     BaseSearch: typeof import('./src/components/UI/BaseSearch.vue')['default']
+    CountryDetail: typeof import('./src/components/pages/CountryDetail.vue')['default']
     CountryList: typeof import('./src/components/pages/CountryList.vue')['default']
     HelloWorld: typeof import("./src/components/HelloWorld.vue")["default"]
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
     TheHeader: typeof import('./src/components/Layout/TheHeader.vue')['default']
   }
 }
