@@ -8,7 +8,7 @@ function toggleMode() {
 
 <template>
   <TheHeader @mode="toggleMode" />
-  <CountryList />
+  <router-view></router-view>
 </template>
 
 <style>
