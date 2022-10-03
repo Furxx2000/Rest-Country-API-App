@@ -14,10 +14,11 @@ import { faMoon } from "@fortawesome/free-regular-svg-icons";
 import {
   faMagnifyingGlass,
   faAngleDown,
+  faArrowLeftLong,
 } from "@fortawesome/free-solid-svg-icons";
 
 /* Add icons to the library */
-library.add(faMoon, faMagnifyingGlass, faAngleDown);
+library.add(faMoon, faMagnifyingGlass, faAngleDown, faArrowLeftLong);
 
 const app = createApp(App);
 
