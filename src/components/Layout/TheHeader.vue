@@ -12,7 +12,10 @@ function toggleMode() {
 <template>
   <header>
     <nav class="flex">
-      <h1 class="fs-header fw-800 text-dark-blue-3">Where in the world</h1>
+      <router-link to="/">
+        <h1 class="fs-header fw-800 text-dark-blue-3">Where in the world</h1>
+      </router-link>
+
       <button
         @click="toggleMode"
         type="button"
