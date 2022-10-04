@@ -1,10 +1,6 @@
-import { defineAsyncComponent } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 import CountryList from "./components/pages/CountryList.vue";
-
-const CountryDetail = defineAsyncComponent(
-  () => import("./components/pages/CountryDetail.vue")
-);
+import CountryDetail from "./components/pages/CountryDetail.vue";
 
 const routes = [
   { path: "/", redirect: "/country" },
