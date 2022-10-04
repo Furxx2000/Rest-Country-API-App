@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { toRefs } from "@vue/reactivity";
+import { useRouter, useRoute } from "vue-router";
 import {} from "./BaseFilter.vue";
 
 interface Props {
@@ -10,6 +11,8 @@ interface Props {
   countryCapital: [];
 }
 
+const router = useRouter();
+const route = useRoute();
 const props = defineProps<Props>();
 const {
   countryFlags,
@@ -22,10 +25,14 @@ const altText = `This country is ${countryName.value}`;
 const transformedPopulationText = countryPopulation.value
   .toString()
   .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+function goToDetail() {
+  router.push(`${route.path}/${countryName.value}`);
+}
 </script>
 
 <template>
-  <article class="country-card card-style">
+  <article class="country-card card-style" @click="goToDetail">
     <div class="country-flag">
       <img :src="countryFlags" :alt="altText" loading="lazy" />
     </div>
