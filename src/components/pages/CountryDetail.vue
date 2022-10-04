@@ -1,30 +1,105 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { toRef, toRefs, ref, reactive } from "@vue/reactivity";
+import { onBeforeMount } from "@vue/runtime-core";
+import {} from "./CountryList.vue";
+
+interface Prop {
+  name: string;
+}
+
+interface country {
+  flag: string;
+  name: string;
+  nativeName: string;
+  population: string;
+  region: string;
+  subRegion: string;
+  capital: string;
+  topLevelDomain: string;
+  currencies: string;
+  languages: string[];
+  borderCountries: string[];
+}
+
+const prop = defineProps<Prop>();
+const { name } = prop;
+const country = ref<country>();
+const altText = ref("");
+
+async function getCountry() {
+  try {
+    const url = `https://restcountries.com/v3.1/name/${name}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log(data);
+    if (!res.ok) throw new Error(`${data.message} ${res.status}`);
+
+    country.value = {
+      flag: data[0]?.flags?.svg,
+      name: data[0]?.name?.official,
+      nativeName: data[0]?.name?.nativeName?.isl?.official,
+      population: data[0]?.population
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+      region: data[0]?.region,
+      subRegion: data[0]?.subregion,
+      capital: data[0]?.capital[0],
+      topLevelDomain: data[0]?.tld[0],
+      currencies: data[0]?.currencies?.ISK?.name,
+      languages: data[0]?.languages?.isl,
+      borderCountries: data[0]?.border,
+    };
+    altText.value = `This country is ${country.value.name}`;
+  } catch (e) {
+    throw e;
+  }
+}
+onBeforeMount(() => {
+  getCountry();
+});
+</script>
 
 <template>
   <main class="grid">
-    <button type="button" class="back-button fs-header">
-      <font-awesome-icon icon="fa-solid fa-arrow-left-long" />
-      Back
-    </button>
+    <router-link to="/">
+      <button type="button" class="back-button fs-header">
+        <font-awesome-icon icon="fa-solid fa-arrow-left-long" />
+        Back
+      </button>
+    </router-link>
 
     <article class="country grid">
       <div class="country-flag">
-        <img src="" alt="" />
+        <img :src="country.flag" :alt="altText" />
       </div>
 
       <section class="country-detail grid">
-        <h3 class="fs-600 fw-800">Belgium</h3>
+        <h3 class="fs-600 fw-800">{{ country.name }}</h3>
         <ul class="flow">
-          <li>Native Name: <span>Belgie</span></li>
-          <li>Population: <span>11,319,511</span></li>
-          <li>Region: <span>Europe</span></li>
-          <li>Sub Region: <span>Western Europe</span></li>
-          <li>Capital: <span>Brussels</span></li>
+          <li>
+            Native Name: <span>{{ country.nativeName }}</span>
+          </li>
+          <li>
+            Population: <span>{{ country.population }}</span>
+          </li>
+          <li>
+            Region: <span>{{ country.region }}</span>
+          </li>
+          <li>
+            Sub Region: <span>{{ country.subRegion }}</span>
+          </li>
+          <li>
+            Capital: <span>{{ country.capital }}</span>
+          </li>
         </ul>
 
         <ul class="flow">
-          <li>Top Level Domain: <span>.be</span></li>
-          <li>Currencies: <span>Euro</span></li>
+          <li>
+            Top Level Domain: <span>{{ country.topLevelDomain }}</span>
+          </li>
+          <li>
+            Currencies: <span>{{ country.currencies }}</span>
+          </li>
           <li>Languages: <span>Dutch, French, German</span></li>
         </ul>
 
