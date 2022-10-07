@@ -1,64 +1,3 @@
-<script setup lang="ts">
-import { toRef, toRefs, ref, reactive } from "@vue/reactivity";
-import { onBeforeMount } from "@vue/runtime-core";
-import {} from "./CountryList.vue";
-
-interface Prop {
-  name: string;
-}
-
-interface country {
-  flag: string;
-  name: string;
-  nativeName: string;
-  population: string;
-  region: string;
-  subRegion: string;
-  capital: string;
-  topLevelDomain: string;
-  currencies: string;
-  languages: string[];
-  borderCountries: string[];
-}
-
-const prop = defineProps<Prop>();
-const { name } = prop;
-const country = ref<country>();
-const altText = ref("");
-
-async function getCountry() {
-  try {
-    const url = `https://restcountries.com/v3.1/name/${name}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    console.log(data);
-    if (!res.ok) throw new Error(`${data.message} ${res.status}`);
-
-    country.value = {
-      flag: data[0]?.flags?.svg,
-      name: data[0]?.name?.official,
-      nativeName: data[0]?.name?.nativeName?.isl?.official,
-      population: data[0]?.population
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-      region: data[0]?.region,
-      subRegion: data[0]?.subregion,
-      capital: data[0]?.capital[0],
-      topLevelDomain: data[0]?.tld[0],
-      currencies: data[0]?.currencies?.ISK?.name,
-      languages: data[0]?.languages?.isl,
-      borderCountries: data[0]?.border,
-    };
-    altText.value = `This country is ${country.value.name}`;
-  } catch (e) {
-    throw e;
-  }
-}
-onBeforeMount(() => {
-  getCountry();
-});
-</script>
-
 <template>
   <main class="grid">
     <router-link to="/">
@@ -68,9 +7,9 @@ onBeforeMount(() => {
       </button>
     </router-link>
 
-    <article class="country grid">
+    <article v-if="country" class="country grid">
       <div class="country-flag">
-        <img :src="country.flag" :alt="altText" />
+        <img :src="country.flag" />
       </div>
 
       <section class="country-detail grid">
@@ -95,26 +34,98 @@ onBeforeMount(() => {
 
         <ul class="flow">
           <li>
-            Top Level Domain: <span>{{ country.topLevelDomain }}</span>
+            Top Level Domain: <span>{{ country.tld }}</span>
           </li>
           <li>
             Currencies: <span>{{ country.currencies }}</span>
           </li>
-          <li>Languages: <span>Dutch, French, German</span></li>
+          <li>
+            Languages:
+            <span v-for="lang in country.languages" :key="lang"
+              >{{ lang }},
+            </span>
+          </li>
         </ul>
 
-        <div class="country-border grid">
+        <div v-if="country.borders" class="country-border grid">
           <h4 class="fs-400 fw-600">Border Countries:</h4>
-          <div class="flex">
-            <button type="button">France</button>
-            <button type="button">Germany</button>
-            <button type="button">Netherlands</button>
+          <div class="borders flex">
+            <button
+              type="button"
+              @click="goToBorder(border)"
+              v-for="border in country.borders"
+              :key="border"
+            >
+              {{ border }}
+            </button>
           </div>
         </div>
       </section>
     </article>
   </main>
 </template>
+
+<script setup lang="ts">
+import { watch } from "vue";
+import { ref } from "@vue/reactivity";
+import { useRoute, useRouter } from "vue-router";
+
+interface Prop {
+  name: string;
+}
+
+const route = useRoute();
+const router = useRouter();
+const prop = defineProps<Prop>();
+const { name } = prop;
+const country = ref();
+
+watch(
+  () => route.params.name,
+  async (newName) => {
+    await getCountry(newName);
+  }
+);
+
+const getCountry = async (name: string | string[]) => {
+  try {
+    const url = `https://restcountries.com/v3.1/alpha/${name}`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(`${data.message} ${res.status}`);
+
+    const c = data[0];
+
+    country.value = {
+      flag: c?.flags?.svg,
+      name: c?.name?.official,
+      nativeName: Object.keys(c?.name?.nativeName).map(
+        (key) => c?.name?.nativeName[key]
+      )[0]?.official,
+      population: c?.population
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+      region: c?.region,
+      subRegion: c?.subregion,
+      capital: c?.capital[0],
+      tld: c?.tld[0],
+      currencies: Object.keys(c?.currencies).map((key) => c?.currencies[key])[0]
+        ?.name,
+      languages: Object.entries(c?.languages).map(([key, value]) => value),
+      borders: c?.borders,
+    };
+  } catch (e) {
+    throw e;
+  }
+};
+
+function goToBorder(border: string) {
+  router.push(`${border}`);
+}
+
+getCountry(name);
+</script>
 
 <style scoped>
 .back-button {
@@ -174,5 +185,9 @@ ul:nth-child(3) {
   font-size: var(--fs-input-200);
   border-radius: 2px;
   box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.104931);
+}
+
+.borders {
+  flex-wrap: wrap;
 }
 </style>
