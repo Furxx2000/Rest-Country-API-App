@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from "@vue/runtime-core";
-import {} from "./CountryList.vue";
 
 const countries = ref(null);
 
@@ -12,7 +11,7 @@ async function getCountry() {
 
     if (!res.ok) throw new Error(`${data.message} ${res.status}`);
 
-    countries.value = data.slice(0, 10);
+    countries.value = data.slice(0, 32);
   } catch (e) {
     throw e;
   }
@@ -35,6 +34,7 @@ onBeforeMount(() => {
       :country-population="country.population"
       :country-region="country.region"
       :country-capital="country.capital"
+      :country-code="country.cca3"
     />
   </main>
 </template>
