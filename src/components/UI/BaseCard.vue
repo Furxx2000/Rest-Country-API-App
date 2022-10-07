@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { toRefs } from "@vue/reactivity";
 import { useRouter, useRoute } from "vue-router";
-import {} from "./BaseFilter.vue";
 
 interface Props {
   countryFlags: string;
   countryName: string;
   countryPopulation: number;
   countryRegion: string;
+  countryCode: string;
   countryCapital: [];
 }
 
@@ -20,6 +20,7 @@ const {
   countryPopulation,
   countryRegion,
   countryCapital,
+  countryCode,
 } = toRefs(props);
 const altText = `This country is ${countryName.value}`;
 const transformedPopulationText = countryPopulation.value
@@ -27,7 +28,7 @@ const transformedPopulationText = countryPopulation.value
   .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 function goToDetail() {
-  router.push(`${route.path}/${countryName.value}`);
+  router.push(`${route.path}/${countryCode.value}`);
 }
 </script>
 
