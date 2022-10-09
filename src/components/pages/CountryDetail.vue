@@ -52,11 +52,11 @@
           <div class="borders flex">
             <button
               type="button"
-              @click="goToBorder(border)"
+              @click="goToBorder(border.borderCca3)"
               v-for="border in country.borders"
-              :key="border"
+              :key="border.borderName"
             >
-              {{ border }}
+              {{ border.borderName }}
             </button>
           </div>
         </div>
@@ -69,6 +69,7 @@
 import { watch } from "vue";
 import { ref } from "@vue/reactivity";
 import { useRoute, useRouter } from "vue-router";
+import { AJAX } from "../../helper/helper";
 
 interface Prop {
   name: string;
@@ -89,13 +90,7 @@ watch(
 
 const getCountry = async (name: string | string[]) => {
   try {
-    const url = `https://restcountries.com/v3.1/alpha/${name}`;
-    const res = await fetch(url);
-    const data = await res.json();
-
-    if (!res.ok) throw new Error(`${data.message} ${res.status}`);
-
-    const c = data[0];
+    const c = await AJAX(name);
 
     country.value = {
       flag: c?.flags?.svg,
@@ -112,8 +107,17 @@ const getCountry = async (name: string | string[]) => {
       tld: c?.tld[0],
       currencies: Object.keys(c?.currencies).map((key) => c?.currencies[key])[0]
         ?.name,
-      languages: Object.entries(c?.languages).map(([key, value]) => value),
-      borders: c?.borders,
+      languages: Object.entries(c?.languages)?.map(([key, value]) => value),
+      borders: await Promise.all(
+        c?.borders?.map(async (b: string) => {
+          const data = await AJAX(b);
+          const bordersObj = {
+            borderName: data?.name?.common,
+            borderCca3: data?.cca3,
+          };
+          return bordersObj;
+        }) ?? []
+      ),
     };
   } catch (e) {
     throw e;
