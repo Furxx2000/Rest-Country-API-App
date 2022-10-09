@@ -1,21 +1,41 @@
 <script setup lang="ts">
-import {} from "./BaseSearch.vue";
+import { ref } from "vue";
+
+const emit = defineEmits(["search-results"]);
+const searchTerm = ref();
+
+const submitSearchTerm = async () => {
+  const url = searchTerm.value
+    ? `https://restcountries.com/v3.1/name/${searchTerm.value?.toLowerCase()}`
+    : "https://restcountries.com/v3.1/all";
+  const res = await fetch(url);
+  const data = await res.json();
+
+  if (!res.ok) throw new Error(`${data.message} ${res.status}`);
+
+  emit("search-results", data);
+};
 </script>
 <template>
-  <div class="form-control">
-    <button class="icon search">
-      <font-awesome-icon
-        icon="fa-solid fa-magnifying-glass"
-        color="hsl(var(--clr-ultra-light-gray))"
-      />
-    </button>
+  <form @submit.prevent="submitSearchTerm">
+    <div class="form-control">
+      <button type="submit" class="icon search">
+        <font-awesome-icon
+          icon="fa-solid fa-magnifying-glass"
+          color="hsl(var(--clr-ultra-light-gray))"
+        />
+      </button>
 
-    <input
-      class="fs-input fw-400 card-style text-ultra-light-gray"
-      type="text"
-      placeholder="Search for a country..."
-    />
-  </div>
+      <input
+        id="search-term"
+        class="fs-input fw-400 card-style text-dark-blue-3"
+        type="text"
+        placeholder="Search for a country..."
+        autocomplete="off"
+        v-model.trim="searchTerm"
+      />
+    </div>
+  </form>
 </template>
 <style scoped>
 input {

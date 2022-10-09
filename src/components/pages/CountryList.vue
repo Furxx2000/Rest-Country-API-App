@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from "@vue/runtime-core";
+import { onBeforeMount, Ref, ref } from "@vue/runtime-core";
 import { AJAX } from "../../helper/helper";
 
-const countries = ref(null);
+const countries = ref([]);
 
 const getCountry = async () => {
   try {
@@ -22,6 +22,10 @@ const changeRegion = async (region: string) => {
   }
 };
 
+const getSearchResults = (data: []): void => {
+  countries.value = data;
+};
+
 onBeforeMount(() => {
   getCountry();
 });
@@ -29,7 +33,7 @@ onBeforeMount(() => {
 
 <template>
   <main class="grid">
-    <BaseSearch />
+    <BaseSearch @search-results="getSearchResults" />
     <BaseFilter @change-region="changeRegion" />
     <BaseCard
       v-for="country in countries"
