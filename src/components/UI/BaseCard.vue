@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { toRefs } from "@vue/reactivity";
+import { computed } from "@vue/runtime-core";
 import { useRouter, useRoute } from "vue-router";
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
   countryPopulation: number;
   countryRegion: string;
   countryCode: string;
-  countryCapital: [];
+  countryCapital: string[];
 }
 
 const router = useRouter();
@@ -26,10 +27,11 @@ const altText = `This country is ${countryName.value}`;
 const transformedPopulationText = countryPopulation.value
   .toString()
   .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+const capital = computed(() => countryCapital.value[0]);
 
-function goToDetail() {
+const goToDetail = () => {
   router.push(`${route.path}/${countryCode.value}`);
-}
+};
 </script>
 
 <template>
@@ -47,7 +49,7 @@ function goToDetail() {
         Region: <span>{{ countryRegion }}</span>
       </p>
       <p>
-        Capital: <span>{{ countryCapital[0] }}</span>
+        Capital: <span>{{ capital }}</span>
       </p>
     </div>
   </article>
