@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import { ref } from "@vue/reactivity";
 
+const emit = defineEmits(["change-region"]);
 const isOpenFilter = ref(false);
+const regions = ref(["Africa", "America", "Asia", "Europe", "Oceania"]);
 
-function toggleFilter() {
+const toggleFilter = () => {
   isOpenFilter.value = !isOpenFilter.value;
-}
+};
+
+const changeRegion = (e: MouseEvent) => {
+  const target = e.target as HTMLElement;
+  emit("change-region", target.textContent);
+};
 </script>
 <template>
   <div @click="toggleFilter" class="form-control input-filter">
@@ -24,12 +31,10 @@ function toggleFilter() {
       />
     </button>
 
-    <ul v-if="isOpenFilter" class="bg-white card-style flow">
-      <li>Africa</li>
-      <li>America</li>
-      <li>Asia</li>
-      <li>Europe</li>
-      <li>Oceania</li>
+    <ul v-if="isOpenFilter" class="bg-white card-style grid">
+      <li @click="changeRegion" v-for="region in regions" :key="region">
+        {{ region }}
+      </li>
     </ul>
   </div>
 </template>
@@ -57,7 +62,7 @@ ul {
   width: 100%;
   padding: 1rem 1.5rem;
   list-style-type: none;
-  --flow: 0.5rem;
+  --gap: 0.5rem;
 }
 
 ul li {

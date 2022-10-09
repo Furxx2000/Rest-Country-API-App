@@ -13,6 +13,15 @@ const getCountry = async () => {
   }
 };
 
+const changeRegion = async (region: string) => {
+  try {
+    const data = await AJAX(undefined, region);
+    countries.value = data;
+  } catch (e) {
+    throw e;
+  }
+};
+
 onBeforeMount(() => {
   getCountry();
 });
@@ -21,7 +30,7 @@ onBeforeMount(() => {
 <template>
   <main class="grid">
     <BaseSearch />
-    <BaseFilter />
+    <BaseFilter @change-region="changeRegion" />
     <BaseCard
       v-for="country in countries"
       :key="country.name.official"
@@ -29,7 +38,7 @@ onBeforeMount(() => {
       :country-name="country.name.official"
       :country-population="country.population"
       :country-region="country.region"
-      :country-capital="country.capital"
+      :country-capital="country.capital || []"
       :country-code="country.cca3"
     />
   </main>
