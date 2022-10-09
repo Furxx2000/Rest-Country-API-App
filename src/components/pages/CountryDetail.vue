@@ -124,9 +124,9 @@ const getCountry = async (name: string | string[]) => {
   }
 };
 
-function goToBorder(border: string) {
+const goToBorder = (border: string) => {
   router.push(`${border}`);
-}
+};
 
 getCountry(name);
 </script>

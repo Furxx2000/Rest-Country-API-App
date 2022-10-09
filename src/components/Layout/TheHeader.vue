@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "@vue/reactivity";
+import {} from "@vue/reactivity";
 
 const emit = defineEmits(["mode"]);
 
