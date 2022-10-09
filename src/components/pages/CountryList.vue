@@ -1,21 +1,17 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from "@vue/runtime-core";
+import { AJAX } from "../../helper/helper";
 
 const countries = ref(null);
 
-async function getCountry() {
+const getCountry = async () => {
   try {
-    const url = "https://restcountries.com/v3.1/all";
-    const res = await fetch(url);
-    const data = await res.json();
-
-    if (!res.ok) throw new Error(`${data.message} ${res.status}`);
-
+    const data = await AJAX();
     countries.value = data.slice(0, 32);
   } catch (e) {
     throw e;
   }
-}
+};
 
 onBeforeMount(() => {
   getCountry();
