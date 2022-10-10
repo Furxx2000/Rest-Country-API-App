@@ -67,15 +67,15 @@ getCountry(name);
 <template>
   <main class="container grid">
     <router-link to="/">
-      <button type="button" class="back-button fs-country-detail">
+      <button type="button" class="back-button fs-country-detail shadow-3 flex">
         <font-awesome-icon icon="fa-solid fa-arrow-left-long" />
         Back
       </button>
     </router-link>
 
     <article v-if="country" class="country grid">
-      <div class="country-flag">
-        <img :src="country.flag" />
+      <div class="country-flag card-detail-radius-mb shadow">
+        <img class="card-detail-radius-mb" :src="country.flag" />
       </div>
 
       <section class="country-detail grid">
@@ -121,6 +121,7 @@ getCountry(name);
             <div class="borders flex">
               <button
                 type="button"
+                class="shadow-2"
                 @click="goToBorder(border.borderCca3)"
                 v-for="border in country.borders"
                 :key="border.borderName"
@@ -137,14 +138,12 @@ getCountry(name);
 
 <style scoped>
 .back-button {
-  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
   width: 104px;
   height: 32px;
   border-radius: 2px;
-  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.293139);
+  --gap: 0.5rem;
 }
 
 main {
@@ -159,13 +158,7 @@ main {
 .country-flag {
   width: 100%;
   min-height: 229px;
-  border-radius: 5.7px;
   background-color: gray;
-  box-shadow: 0px 0px 14px 4px rgba(0, 0, 0, 0.0294384);
-}
-
-.country-flag img {
-  border-radius: 5.7px;
 }
 
 .country-detail {
@@ -198,7 +191,6 @@ ul:nth-child(2) {
   height: 28px;
   font-size: var(--fs-input-200);
   border-radius: 2px;
-  box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.104931);
 }
 
 .country-border > div {
@@ -214,9 +206,21 @@ ul:nth-child(2) {
   --gap: 10px;
 }
 
+@media only screen and (min-width: 820px) {
+  .country {
+    grid-template-columns: 1.3fr 1fr;
+  }
+}
+
 @media only screen and (min-width: 1440px) {
   main {
     padding: 5rem 0;
+  }
+
+  .back-button {
+    width: 136px;
+    height: 40px;
+    border-radius: 6px;
   }
 
   .country {
@@ -249,6 +253,10 @@ ul:nth-child(2) {
 
   .country-border > div {
     flex-direction: row;
+  }
+
+  .country-border button {
+    width: 99px;
   }
 }
 </style>

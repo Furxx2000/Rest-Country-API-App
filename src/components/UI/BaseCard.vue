@@ -36,8 +36,13 @@ const goToDetail = () => {
 
 <template>
   <article class="country-card card-style" @click="goToDetail">
-    <div class="country-flag">
-      <img :src="countryFlags" :alt="altText" loading="lazy" />
+    <div class="country-flag card-radius-mb">
+      <img
+        class="card-radius-mb"
+        :src="countryFlags"
+        :alt="altText"
+        loading="lazy"
+      />
     </div>
     <div class="country-information">
       <h1 class="fs-500">{{ countryName }}</h1>
@@ -60,12 +65,11 @@ const goToDetail = () => {
   width: 100%;
   max-width: 264px;
   min-height: 336px;
-  margin-inline: 40px;
+  cursor: pointer;
 }
 
 .country-flag {
   height: 160px;
-  border-radius: 5px 5px 0 0;
 }
 
 .country-information {

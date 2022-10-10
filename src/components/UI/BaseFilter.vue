@@ -4,6 +4,7 @@ import { ref } from "@vue/reactivity";
 const emit = defineEmits(["change-region"]);
 const isOpenFilter = ref(false);
 const regions = ref(["Africa", "America", "Asia", "Europe", "Oceania"]);
+const filterValue = ref();
 
 const toggleFilter = () => {
   isOpenFilter.value = !isOpenFilter.value;
@@ -11,15 +12,17 @@ const toggleFilter = () => {
 
 const changeRegion = (e: MouseEvent) => {
   const target = e.target as HTMLElement;
+  filterValue.value = target.textContent;
   emit("change-region", target.textContent);
 };
 </script>
 <template>
   <div @click="toggleFilter" class="form-control input-filter">
     <input
-      class="fs-input fw-400 card-style text-dark-blue-3"
+      class="fs-input fw-400 input-style text-dark-blue-3"
       type="text"
       placeholder="Filter by Region"
+      :value="filterValue"
       readonly
     />
 
@@ -31,7 +34,7 @@ const changeRegion = (e: MouseEvent) => {
       />
     </button>
 
-    <ul v-if="isOpenFilter" class="bg-white card-style grid">
+    <ul v-if="isOpenFilter" class="bg-white input-style grid">
       <li @click="changeRegion" v-for="region in regions" :key="region">
         {{ region }}
       </li>
@@ -67,5 +70,6 @@ ul {
 
 ul li {
   font-size: var(--fs-input-200);
+  cursor: pointer;
 }
 </style>

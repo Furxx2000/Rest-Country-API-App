@@ -28,7 +28,7 @@ const submitSearchTerm = async () => {
 
       <input
         id="search-term"
-        class="fs-input fw-400 card-style text-dark-blue-3"
+        class="fs-input fw-400 input-style text-dark-blue-3"
         type="text"
         placeholder="Search for a country..."
         autocomplete="off"
