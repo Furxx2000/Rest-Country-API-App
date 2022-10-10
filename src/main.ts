@@ -10,15 +10,22 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 /* import specific icons */
-import { faMoon } from "@fortawesome/free-regular-svg-icons";
+import { faMoon as faMoonRegular } from "@fortawesome/free-regular-svg-icons";
 import {
   faMagnifyingGlass,
   faAngleDown,
   faArrowLeftLong,
+  faMoon as faMoonSolid,
 } from "@fortawesome/free-solid-svg-icons";
 
 /* Add icons to the library */
-library.add(faMoon, faMagnifyingGlass, faAngleDown, faArrowLeftLong);
+library.add(
+  faMoonRegular,
+  faMoonSolid,
+  faMagnifyingGlass,
+  faAngleDown,
+  faArrowLeftLong
+);
 
 const app = createApp(App);
 
