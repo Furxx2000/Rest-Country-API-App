@@ -27,9 +27,7 @@ const toggleMode = () => {
   } else {
     setTheme("light-mode");
   }
-  userTheme.value =
-    userTheme.value === "light-mode" ? "dark-mode" : "light-mode";
-  console.log(userTheme.value);
+  userTheme.value = getTheme();
   document.querySelector("body")?.classList.toggle("dark-mode");
 };
 
@@ -45,7 +43,6 @@ onBeforeMount(() => {
 
 <template>
   <TheHeader @mode="toggleMode" :user-theme="userTheme" />
-  <!-- <router-view></router-view> -->
   <router-view v-slot="{ Component }">
     <transition name="router" mode="out-in">
       <component :is="Component" :key="route.push"></component>
