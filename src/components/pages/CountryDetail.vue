@@ -73,71 +73,96 @@ getCountry(name);
         Back
       </button>
     </router-link>
-
-    <article v-if="country" class="country grid">
-      <div class="country-flag card-detail-radius-mb shadow">
-        <img class="card-detail-radius-mb" :src="country.flag" />
-      </div>
-
-      <section class="country-detail grid">
-        <h3 class="fs-600 fw-800">{{ country.name }}</h3>
-        <div class="details grid">
-          <ul class="flow">
-            <li>
-              Native Name: <span>{{ country.nativeName }}</span>
-            </li>
-            <li>
-              Population: <span>{{ country.population }}</span>
-            </li>
-            <li>
-              Region: <span>{{ country.region }}</span>
-            </li>
-            <li>
-              Sub Region: <span>{{ country.subRegion }}</span>
-            </li>
-            <li>
-              Capital: <span>{{ country.capital }}</span>
-            </li>
-          </ul>
-
-          <ul class="flow">
-            <li>
-              Top Level Domain: <span>{{ country.tld }}</span>
-            </li>
-            <li>
-              Currencies: <span>{{ country.currencies }}</span>
-            </li>
-            <li>
-              Languages:
-              <span v-for="lang in country.languages" :key="lang"
-                >{{ lang }},
-              </span>
-            </li>
-          </ul>
+    <Transition name="detail">
+      <article v-if="country" class="country grid">
+        <div class="country-flag card-detail-radius-mb shadow">
+          <img class="card-detail-radius-mb" :src="country.flag" />
         </div>
 
-        <div v-if="country.borders" class="country-border">
-          <div class="flex">
-            <h4 class="fs-400 fw-600">Border Countries:</h4>
-            <div class="borders flex">
-              <button
-                type="button"
-                class="shadow-2"
-                @click="goToBorder(border.borderCca3)"
-                v-for="border in country.borders"
-                :key="border.borderName"
-              >
-                {{ border.borderName }}
-              </button>
+        <section class="country-detail grid">
+          <h3 class="fs-600 fw-800">{{ country.name }}</h3>
+          <div class="details grid">
+            <ul class="flow">
+              <li>
+                Native Name: <span>{{ country.nativeName }}</span>
+              </li>
+              <li>
+                Population: <span>{{ country.population }}</span>
+              </li>
+              <li>
+                Region: <span>{{ country.region }}</span>
+              </li>
+              <li>
+                Sub Region: <span>{{ country.subRegion }}</span>
+              </li>
+              <li>
+                Capital: <span>{{ country.capital }}</span>
+              </li>
+            </ul>
+
+            <ul class="flow">
+              <li>
+                Top Level Domain: <span>{{ country.tld }}</span>
+              </li>
+              <li>
+                Currencies: <span>{{ country.currencies }}</span>
+              </li>
+              <li>
+                Languages:
+                <span v-for="lang in country.languages" :key="lang"
+                  >{{ lang }},
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          <div v-if="country.borders" class="country-border">
+            <div class="flex">
+              <h4 class="fs-400 fw-600">Border Countries:</h4>
+              <div class="borders flex">
+                <button
+                  type="button"
+                  class="shadow-2"
+                  @click="goToBorder(border.borderCca3)"
+                  v-for="border in country.borders"
+                  :key="border.borderName"
+                >
+                  {{ border.borderName }}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-    </article>
+        </section>
+      </article>
+    </Transition>
   </main>
 </template>
 
 <style scoped>
+.detail-enter-from {
+  opacity: 0;
+  translate: 0 -30px;
+}
+
+.detail-leave-to {
+  opacity: 0;
+  translate: 0 30px;
+}
+
+.detail-enter-active {
+  transition: all 0.5s ease-out;
+}
+
+.detail-leave-active {
+  transition: all 0.5s ease-in;
+}
+
+.detail-enter-to,
+.detail-leave-from {
+  opacity: 1;
+  translate: 0 0;
+}
+
 .back-button {
   align-items: center;
   justify-content: center;
