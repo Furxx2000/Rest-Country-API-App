@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { ref } from "@vue/reactivity";
+import { toRefs } from "@vue/reactivity";
+import { computed } from "@vue/runtime-core";
+
+interface Theme {
+  userTheme: string;
+}
 
 const emit = defineEmits(["mode"]);
-const darkMode = ref(false);
+const props = defineProps<Theme>();
+const { userTheme } = toRefs(props);
+const darkMode = computed(() => userTheme.value === "dark-mode");
 
 const toggleMode = () => {
-  darkMode.value = !darkMode.value;
   emit("mode");
 };
 </script>
