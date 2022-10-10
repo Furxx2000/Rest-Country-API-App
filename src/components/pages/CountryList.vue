@@ -2,7 +2,7 @@
 import { onBeforeMount, ref } from "@vue/runtime-core";
 import { AJAX } from "../../helper/helper";
 
-const countries = ref([]);
+const countries = ref<any>([]);
 
 const getCountry = async () => {
   try {
@@ -41,13 +41,13 @@ onBeforeMount(() => {
     <TransitionGroup name="list" tag="div" class="countries grid">
       <BaseCard
         v-for="country in countries"
-        :key="country.name.official"
-        :country-flags="country.flags.svg"
-        :country-name="country.name.official"
-        :country-population="country.population"
-        :country-region="country.region"
-        :country-capital="country.capital || []"
-        :country-code="country.cca3"
+        :key="country?.name?.official"
+        :country-flags="country?.flags?.svg"
+        :country-name="country?.name?.official"
+        :country-population="country?.population"
+        :country-region="country?.region"
+        :country-capital="country?.capital || []"
+        :country-code="country?.cca3"
       />
     </TransitionGroup>
   </main>

@@ -44,9 +44,9 @@ onBeforeMount(() => {
 <template>
   <TheHeader @mode="toggleMode" :user-theme="userTheme" />
   <router-view v-slot="{ Component }">
-    <transition name="router" mode="out-in">
-      <component :is="Component" :key="route.push"></component>
-    </transition>
+    <Transition name="router" mode="out-in">
+      <component :is="Component"></component>
+    </Transition>
   </router-view>
 </template>
 
