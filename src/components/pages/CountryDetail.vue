@@ -15,8 +15,9 @@ const { name } = prop;
 const country = ref();
 
 watch(
-  () => route.params.name,
+  () => route.params?.name,
   async (newName) => {
+    if (!newName) return;
     await getCountry(newName);
   }
 );
