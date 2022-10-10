@@ -30,7 +30,7 @@ const transformedPopulationText = countryPopulation.value
 const capital = computed(() => countryCapital.value[0]);
 
 const goToDetail = () => {
-  router.push(`${route.path}/${countryCode.value}`);
+  router.push(`${route.path}${countryCode.value}`);
 };
 </script>
 
