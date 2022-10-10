@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import {} from "@vue/reactivity";
+import { ref } from "@vue/reactivity";
 
 const emit = defineEmits(["mode"]);
+const darkMode = ref(false);
 
-function toggleMode() {
+const toggleMode = () => {
+  darkMode.value = !darkMode.value;
   emit("mode");
-}
+};
 </script>
 
 <template>
-  <header>
+  <header class="shadow-4">
     <nav class="container flex">
       <router-link to="/">
         <h1 class="fs-header fw-800 text-dark-blue-3">Where in the world</h1>
@@ -20,7 +22,12 @@ function toggleMode() {
         type="button"
         class="fs-switcher fw-600 text-dark-blue-3"
       >
-        <font-awesome-icon icon="fa-regular fa-moon" size="xl" />
+        <font-awesome-icon
+          v-if="!darkMode"
+          icon="fa-regular fa-moon"
+          size="xl"
+        />
+        <font-awesome-icon v-else icon="fa-solid fa-moon" size="xl" />
         Dark Mode
       </button>
     </nav>
@@ -32,7 +39,6 @@ header {
   width: 100%;
   height: 80px;
   padding: 30px 16px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.0562443);
 }
 
 nav {
