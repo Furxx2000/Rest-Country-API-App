@@ -10,7 +10,7 @@ function toggleMode() {
 
 <template>
   <header>
-    <nav class="flex">
+    <nav class="container flex">
       <router-link to="/">
         <h1 class="fs-header fw-800 text-dark-blue-3">Where in the world</h1>
       </router-link>
@@ -29,7 +29,7 @@ function toggleMode() {
 
 <style scoped>
 header {
-  width: 100vw;
+  width: 100%;
   height: 80px;
   padding: 30px 16px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.0562443);
@@ -46,5 +46,11 @@ button {
   appearance: none;
   border: none;
   background-color: transparent;
+}
+
+@media only screen and (min-width: 1440px) {
+  header {
+    padding: 30px 5rem;
+  }
 }
 </style>
