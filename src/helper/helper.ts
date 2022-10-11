@@ -15,3 +15,7 @@ export const AJAX = async (
 
   return name ? data[0] : data;
 };
+
+export const wait = (seconds: number) => {
+  return new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+};
