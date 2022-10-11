@@ -1,34 +1,34 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from "@vue/runtime-core";
-import { AJAX } from "../../helper/helper";
-
-const countries = ref<any>([]);
+import { ref } from "@vue/runtime-core";
+import { AJAX, wait } from "../../helper/helper";
 
 const getCountry = async () => {
   try {
     const data = await AJAX();
-    countries.value = data;
+    return data;
   } catch (e) {
     throw e;
   }
 };
+
+const countries = ref<any>(await getCountry());
 
 const changeRegion = async (region: string) => {
   try {
+    countries.value = [];
     const data = await AJAX(undefined, region);
+    await wait(0.6);
     countries.value = data;
   } catch (e) {
     throw e;
   }
 };
 
-const getSearchResults = (data: []): void => {
+const getSearchResults = async (data: []) => {
+  countries.value = [];
+  await wait(0.6);
   countries.value = data;
 };
-
-onBeforeMount(() => {
-  getCountry();
-});
 </script>
 
 <template>
@@ -43,7 +43,7 @@ onBeforeMount(() => {
         v-for="country in countries"
         :key="country?.name?.official"
         :country-flags="country?.flags?.svg"
-        :country-name="country?.name?.official"
+        :country-name="country?.name?.common"
         :country-population="country?.population"
         :country-region="country?.region"
         :country-capital="country?.capital || []"
