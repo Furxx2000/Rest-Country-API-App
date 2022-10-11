@@ -14,6 +14,7 @@ declare module '@vue/runtime-core' {
     CountryList: typeof import('./src/components/pages/CountryList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Skeleton: typeof import('./src/components/UI/Skeleton.vue')['default']
     TheHeader: typeof import('./src/components/Layout/TheHeader.vue')['default']
   }
 }
