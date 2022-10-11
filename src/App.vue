@@ -43,19 +43,25 @@ onBeforeMount(() => {
 
 <template>
   <TheHeader @mode="toggleMode" :user-theme="userTheme" />
-  <router-view v-slot="{ Component }">
-    <Transition name="router" mode="out-in">
-      <component :is="Component"></component>
-    </Transition>
-  </router-view>
+  <Router-view v-slot="{ Component, route }">
+    <template v-if="Component">
+      <Transition name="router" mode="out-in">
+        <Suspense>
+          <component :is="Component"></component>
+          <template #fallback>
+            <main class="grid container">
+              <div v-if="route.name === 'country-list'" class="countries grid">
+                <Skeleton v-for="n in 20" :key="n" />
+              </div>
+            </main>
+          </template>
+        </Suspense>
+      </Transition>
+    </template>
+  </Router-view>
 </template>
 
-<style>
-body {
-  background-color: hsl(var(--clr-light-gray));
-  min-height: 100vh;
-}
-
+<style scoped>
 .router-enter-from {
   opacity: 0;
   translate: 0 -30px;
@@ -78,5 +84,26 @@ body {
 .router-leave-from {
   opacity: 1;
   translate: 0 0;
+}
+
+main {
+  margin-top: 192px;
+  --gap: 2.5rem;
+}
+
+.countries {
+  grid-template-columns: repeat(auto-fill, 264px);
+  justify-content: center;
+}
+
+@media only screen and (min-width: 1440px) {
+  main {
+    margin-top: 152px;
+    --gap: 3rem;
+  }
+  .countries {
+    row-gap: 75px;
+    justify-content: space-between;
+  }
 }
 </style>
