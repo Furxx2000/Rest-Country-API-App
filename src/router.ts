@@ -4,9 +4,14 @@ import CountryDetail from "./components/pages/CountryDetail.vue";
 
 const routes = [
   { path: "/", redirect: "/Rest-Country-API-App/" },
-  { path: "/Rest-Country-API-App/", component: CountryList },
+  {
+    path: "/Rest-Country-API-App/",
+    name: "country-list",
+    component: CountryList,
+  },
   {
     path: "/Rest-Country-API-App/:name",
+    name: "country-detail",
     component: CountryDetail,
     props: true,
   },
