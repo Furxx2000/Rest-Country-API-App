@@ -26,7 +26,7 @@ const changeRegion = (e: MouseEvent) => {
       readonly
     />
 
-    <button type="button" class="icon angle-down">
+    <button type="button" class="icon angle-down" aria-label="Open region List">
       <font-awesome-icon
         icon="fa-solid fa-angle-down"
         color="hsl(var(--clr-dark-blue-3))"

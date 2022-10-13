@@ -19,7 +19,7 @@ const submitSearchTerm = async () => {
 <template>
   <form @submit.prevent="submitSearchTerm">
     <div class="form-control">
-      <button class="icon search">
+      <button class="icon search" aria-label="Search">
         <font-awesome-icon
           icon="fa-solid fa-magnifying-glass"
           color="hsl(var(--clr-ultra-light-gray))"
