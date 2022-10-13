@@ -26,7 +26,7 @@ const changeRegion = (e: MouseEvent) => {
       readonly
     />
 
-    <button class="icon angle-down">
+    <button type="button" class="icon angle-down">
       <font-awesome-icon
         icon="fa-solid fa-angle-down"
         color="hsl(var(--clr-dark-blue-3))"
@@ -70,6 +70,11 @@ ul {
 
 ul li {
   font-size: var(--fs-input-200);
+  transition: all 0.1s linear;
   cursor: pointer;
+}
+
+ul li:hover {
+  scale: 1.1;
 }
 </style>
