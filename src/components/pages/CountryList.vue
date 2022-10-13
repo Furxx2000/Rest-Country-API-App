@@ -42,7 +42,7 @@ const getSearchResults = async (data: []) => {
       <BaseCard
         v-for="country in countries"
         :key="country?.name?.official"
-        :country-flags="country?.flags?.svg"
+        :country-flags="country?.flags?.png"
         :country-name="country?.name?.common"
         :country-population="country?.population"
         :country-region="country?.region"

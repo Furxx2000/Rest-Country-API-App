@@ -27,8 +27,8 @@ const getCountry = async (name: string | string[]) => {
     const c = await AJAX(name);
 
     country.value = {
-      flag: c?.flags?.svg,
-      name: c?.name?.official,
+      flag: c?.flags?.png,
+      name: c?.name?.common,
       nativeName: Object.keys(c?.name?.nativeName).map(
         (key) => c?.name?.nativeName[key]
       )[0]?.official,
