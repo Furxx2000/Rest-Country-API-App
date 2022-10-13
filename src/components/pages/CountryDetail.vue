@@ -27,7 +27,7 @@ const getCountry = async (name: string | string[]) => {
     const c = await AJAX(name);
 
     country.value = {
-      flag: c?.flags?.png,
+      flag: c?.flags?.svg,
       name: c?.name?.common,
       nativeName: Object.keys(c?.name?.nativeName).map(
         (key) => c?.name?.nativeName[key]
@@ -75,9 +75,10 @@ getCountry(name);
     </router-link>
     <Transition name="detail">
       <article v-if="country" class="country grid">
-        <div class="country-flag card-detail-radius-mb shadow">
-          <img class="card-detail-radius-mb" :src="country.flag" />
-        </div>
+        <img class="card-detail-radius-mb" :src="country.flag" />
+        <!-- <div class="country-flag card-detail-radius-mb shadow">
+          
+        </div> -->
 
         <section class="country-detail grid">
           <h3 class="fs-600 fw-800">{{ country.name }}</h3>
@@ -250,7 +251,7 @@ ul:nth-child(2) {
   }
 
   .country {
-    grid-template-columns: 560px 574px;
+    grid-template-columns: 1fr 1fr;
     justify-content: space-between;
   }
 
