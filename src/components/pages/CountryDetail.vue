@@ -76,9 +76,6 @@ getCountry(name);
     <Transition name="detail">
       <article v-if="country" class="country grid">
         <img class="card-detail-radius-mb" :src="country.flag" />
-        <!-- <div class="country-flag card-detail-radius-mb shadow">
-          
-        </div> -->
 
         <section class="country-detail grid">
           <h3 class="fs-600 fw-800">{{ country.name }}</h3>
@@ -214,7 +211,8 @@ ul:nth-child(2) {
 }
 
 .country-border button {
-  width: 96px;
+  min-width: 96px;
+  padding-inline: 1rem;
   height: 28px;
   font-size: var(--fs-input-200);
   border-radius: 2px;
@@ -283,7 +281,7 @@ ul:nth-child(2) {
   }
 
   .country-border button {
-    width: 99px;
+    min-width: 99px;
   }
 }
 </style>

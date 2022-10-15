@@ -45,6 +45,7 @@ header {
   width: 100%;
   height: 80px;
   padding: 30px 16px;
+  background-color: hsl(var(--clr-white));
 }
 
 nav {
